@@ -2,7 +2,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
    Name = "R4NG HUB | SCRIPT HUB",
-   Icon = crown, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+   Icon = "crown", -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
    LoadingTitle = "R4NG HUB LOADING...",
    LoadingSubtitle = "Coded by: rangapu bjirr",
    ShowText = "R4NG HUB", -- for mobile users to unhide rayfield, change if you'd like
@@ -15,7 +15,7 @@ local Window = Rayfield:CreateWindow({
 
    ConfigurationSaving = {
       Enabled = true,
-      FolderName = config, -- Create a custom folder for your hub/game
+      FolderName = nil, -- Create a custom folder for your hub/game
       FileName = "Big Hub"
    },
 
@@ -33,16 +33,25 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
-local function JumpPower(value)
-    Humanoid.JumpPower = value
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+local function JumpPower(Value)
+    local character = player.Character
+    if character and character:FindFirstChild("Humanoid") then
+        character.Humanoid.JumpPower = Value
+    end
 end
 
-local function WalkSpeed(value)
-    Humanoid.WalkSpeed = value
+local function WalkSpeed(Value)
+    local character = player.Character
+    if character and character:FindFirstChild("Humanoid") then
+        character.Humanoid.WalkSpeed = Value
+    end
 end
 
 local UniTab = Window:CreateTab("Universal tab", "globe")
-local Section = Tab:CreateSection("scripts pilihan")
+local Section = UniTab:CreateSection("scripts pilihan")
 
 local Button = UniTab:CreateButton({
    Name = "SkyBox Changer",
@@ -91,7 +100,7 @@ local Slider = UniTab:CreateSlider({
    CurrentValue = 50,
    Flag = "JumpPowerFlag", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Value)
-       JumpPower(value)
+       JumpPower(Value)
    -- The function that takes place when the slider changes
    -- The variable (Value) is a number which correlates to the value the slider is currently at
    end,
