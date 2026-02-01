@@ -83,7 +83,7 @@ local Status = Instance.new("TextLabel")
 Status.Size = UDim2.new(0.9, 0, 0, 40)
 Status.Position = UDim2.new(0.05, 0, 0.55, 0)
 Status.BackgroundTransparency = 1
-Status.Text = "Status: Mati bisa"
+Status.Text = "Status: Bisa mati"
 Status.TextColor3 = Color3.fromRGB(255, 100, 100)
 Status.Font = Enum.Font.Gotham
 Status.TextSize = 18
@@ -91,6 +91,8 @@ Status.Parent = Frame
 
 -- Variabel
 local GodEnabled = false
+local healthConnection = nil
+local diedConnection = nil
 
 local function StartGodMode()
     local character = LocalPlayer.Character
@@ -102,30 +104,35 @@ local function StartGodMode()
     humanoid.MaxHealth = math.huge
     humanoid.Health = math.huge
 
-    -- Block damage sebisa mungkin (client-side)
-    local healthConnection
+    -- Loop block damage & death
+    if healthConnection then healthConnection:Disconnect() end
     healthConnection = humanoid.HealthChanged:Connect(function(health)
         if health < math.huge then
             humanoid.Health = math.huge
         end
-        if health <= 0 then
-            humanoid.Health = math.huge
-        end
     end)
 
-    -- Reset kalau respawn
-    local diedConnection
+    if diedConnection then diedConnection:Disconnect() end
     diedConnection = humanoid.Died:Connect(function()
-        wait(0.2)
-        StartGodMode()
+        -- Reset toggle saat mati
+        GodEnabled = false
+        Toggle.Text = "GOD MODE OFF"
+        Toggle.BackgroundColor3 = Color3.fromRGB(70, 0, 160)
+        Status.Text = "Status: Bisa mati"
+        Status.TextColor3 = Color3.fromRGB(255, 100, 100)
+
+        wait(0.2)  -- tunggu respawn
+        if GodEnabled then StartGodMode() end  -- kalau masih on, apply lagi
     end)
 
-    -- Update status
     Status.Text = "Status: Tidak bisa mati"
     Status.TextColor3 = Color3.fromRGB(0, 255, 100)
 end
 
 local function StopGodMode()
+    if healthConnection then healthConnection:Disconnect() end
+    if diedConnection then diedConnection:Disconnect() end
+
     local character = LocalPlayer.Character
     if not character then return end
 
