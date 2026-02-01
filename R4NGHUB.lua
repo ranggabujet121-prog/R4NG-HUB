@@ -15,7 +15,7 @@ local Window = Rayfield:CreateWindow({
 
    ConfigurationSaving = {
       Enabled = true,
-      FolderName = nil, -- Create a custom folder for your hub/game
+      FolderName = config, -- Create a custom folder for your hub/game
       FileName = "Big Hub"
    },
 
@@ -32,7 +32,6 @@ local Window = Rayfield:CreateWindow({
       Key = {"asep67"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
    }
 })
-Window:SetWindowTransparency(0.15)
 
 local function JumpPower(value)
     Humanoid.JumpPower = value
