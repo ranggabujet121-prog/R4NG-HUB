@@ -16,7 +16,7 @@ local player = Players.LocalPlayer
 --==================================================
 
 local BROOKHAVEN_PLACEID = 4924922222
-local DECAL_ID = 94300218950105 -- << GANTI DENGAN ID DECAL KAMU
+local DECAL_ID = 94300218950105-- << GANTI DENGAN ID DECAL KAMU
 
 if game.PlaceId ~= BROOKHAVEN_PLACEID then
     pcall(function()
@@ -145,7 +145,7 @@ local Window = OrionLib:MakeWindow({Name = "R4NG HUB | Brookhaven Script", HideP
 
 local MainTab = Window:MakeTab({
 	Name = "Brookhaven Sc",
-	Icon = "rbxassetid://94300218950105",
+	Icon = "rbxassetid://7734053495",
 	PremiumOnly = false
 })
 
@@ -160,7 +160,7 @@ MainTab:AddButton({
   	end    
 })
 
-Tab:AddSlider({
+MainTab:AddSlider({
 	Name = "WalkSpeed",
 	Min = 16,
 	Max = 400,
@@ -179,7 +179,7 @@ end
 
 })
 
-Tab:AddSlider({
+MainTab:AddSlider({
 	Name = "JumpPower",
 	Min = 50,
 	Max = 670,
@@ -230,7 +230,7 @@ MainTab:AddButton({
 
 local HomeTab = Window:MakeTab({
 	Name = "Info",
-	Icon = "rbxassetid://11656483343",
+	Icon = "rbxassetid://7733954760",
 	PremiumOnly = false
 })
 
@@ -246,11 +246,12 @@ AdminInfo:AddTextbox({
 	Default = "https://www.tiktok.com/@ranggaputra262?_r=1&_t=ZS-93fLDyetubs",
 	TextDisappear = false,
 	Callback = function() end
+})
 
 OrionLib:MakeNotification({
 	Name = "R4NG HUB LOADED",
 	Content = "Semua scdiot berhasil dimuat!",
-	Image = "rbxassetid://94300218950105",
+	Image = "rbxassetid://7733656664",
 	Time = 5
 })
 
